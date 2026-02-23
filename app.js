@@ -6,16 +6,14 @@ const music = document.getElementById("bgMusic");
 const heartsContainer = document.getElementById("hearts");
 const funnyPopup = document.getElementById("funnyPopup");
 
-let noAttemptCount = 0;
+let moveCount = 0;
 
-/* 🎵 Start music */
-document.body.addEventListener("click", function () {
-    music.play();
-}, { once: true });
-
-document.body.addEventListener("touchstart", function () {
-    music.play();
-}, { once: true });
+/* 🎵 Start music on first interaction */
+function startMusic() {
+    music.play().catch(() => {});
+}
+document.addEventListener("click", startMusic, { once: true });
+document.addEventListener("touchstart", startMusic, { once: true });
 
 /* 💖 Floating Hearts */
 function createHeart() {
@@ -27,16 +25,16 @@ function createHeart() {
     heart.style.animationDuration = Math.random() * 3 + 3 + "s";
     heartsContainer.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
+    setTimeout(() => heart.remove(), 6000);
 }
 setInterval(createHeart, 300);
 
-/* 😈 Move Button + Count Attempts */
-function moveButton() {
+/* 😈 Move No Button */
+function moveButton(e) {
 
-    noAttemptCount++;   // Count every time user tries
+    if (e) e.preventDefault();
+
+    moveCount++;
 
     const areaRect = buttonArea.getBoundingClientRect();
     const btnWidth = noBtn.offsetWidth;
@@ -51,7 +49,8 @@ function moveButton() {
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
-    if (noAttemptCount === 3) {
+    /* After 3 moves show funny popup */
+    if (moveCount === 3) {
         showFunnyMessage();
     }
 }
@@ -60,13 +59,11 @@ function moveButton() {
 noBtn.addEventListener("mouseenter", moveButton);
 
 /* Mobile */
-noBtn.addEventListener("touchstart", function (e) {
-    e.preventDefault();
-    moveButton();
-});
+noBtn.addEventListener("touchstart", moveButton);
 
 /* 😂 Funny Popup */
 function showFunnyMessage() {
+    if (!funnyPopup) return;
 
     funnyPopup.style.display = "block";
 
