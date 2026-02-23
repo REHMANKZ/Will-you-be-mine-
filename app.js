@@ -31,7 +31,6 @@ setInterval(createHeart, 300);
 
 /* 😈 Move No Button */
 function moveButton(e) {
-
     if (e) e.preventDefault();
 
     moveCount++;
@@ -49,9 +48,10 @@ function moveButton(e) {
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
-    /* After 3 moves show funny popup */
+    /* After 3 moves show funny popup and RESET count */
     if (moveCount === 3) {
         showFunnyMessage();
+        moveCount = 0; // Resetting count so it shows again after next 3 moves
     }
 }
 
@@ -74,7 +74,6 @@ function showFunnyMessage() {
 
 /* 🎆 YES BUTTON */
 function propose() {
-
     mainContent.style.display = "none";
     resultContent.style.display = "block";
 
