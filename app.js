@@ -6,7 +6,7 @@ const music = document.getElementById("bgMusic");
 const heartsContainer = document.getElementById("hearts");
 const funnyPopup = document.getElementById("funnyPopup");
 
-let noClickCount = 0;
+let noAttemptCount = 0;
 
 /* 🎵 Start music */
 document.body.addEventListener("click", function () {
@@ -31,16 +31,14 @@ function createHeart() {
         heart.remove();
     }, 6000);
 }
-
 setInterval(createHeart, 300);
 
-/* 😈 Move No Button */
+/* 😈 Move Button + Count Attempts */
 function moveButton() {
 
-    noClickCount++;
+    noAttemptCount++;   // Count every time user tries
 
     const areaRect = buttonArea.getBoundingClientRect();
-
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
@@ -53,14 +51,15 @@ function moveButton() {
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
-    /* After 3 clicks show funny message */
-    if (noClickCount === 3) {
+    if (noAttemptCount === 3) {
         showFunnyMessage();
     }
 }
 
-noBtn.addEventListener("mouseover", moveButton);
+/* Desktop */
+noBtn.addEventListener("mouseenter", moveButton);
 
+/* Mobile */
 noBtn.addEventListener("touchstart", function (e) {
     e.preventDefault();
     moveButton();
