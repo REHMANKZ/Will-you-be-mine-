@@ -35,7 +35,7 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     display: none;
     z-index: 999;
-    animation: popupFade 0.3s ease;
+    animation: popupFade 0.6s ease;
 }
 
 @keyframes popupFade {
