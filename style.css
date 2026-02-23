@@ -8,7 +8,7 @@ body {
     align-items: center;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     font-family: 'Poppins', sans-serif;
-    transition: 0.5s ease;
+    transition: 0.10s ease;
 }
 
 /* Floating Hearts */
